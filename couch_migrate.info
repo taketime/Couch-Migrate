@@ -1,0 +1,4 @@
+name = Couch Migrate
+description = Provides a way to execute queries, and insert that data in a CouchDB instance
+dependencies[] = schema
+core = 6.x

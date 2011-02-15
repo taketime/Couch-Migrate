@@ -1,0 +1,17 @@
+Couch Migrate
+This is a simple Drupal module, which aids in moving data from MySQL databases Drupal can talk to to a CouchDB.  I wrote it to move some data to Couch, so that I could play around with it.
+
+*Big words of warning*: don't run this on a production website.  The queries it can run are limited just by the site's configured MySQL users' permissions.  As in: you can destroy everything if you aren't careful (DELETE, etc).
+
+Set up the path to your CouchDB instance, and the specific CouchDB in question here:
+http://<site>/admin/settings/couch-migrate 
+
+Primarily, this module provides a couple drush commands:  
+1. couch-migrate migrate <SQL> <db>
+<SQL> is a SQL query
+<db> is a db, as named in your $db_url array in settings.php
+Executes your query, and stores the result in the configured CouchDB 
+
+2. couch-migrate status
+Looks to see if there's a running CouchDB.  Tell you which version is running.
+

@@ -1,0 +1,42 @@
+<?php
+require_once('couch_migrate.inc');
+
+
+/**
+ * Menu callback.
+ */
+function couch_migrate_menu() {
+  $items = array();
+  $items['admin/settings/couch-migrate'] = array(
+    'title' => 'Couch Migrate Settings',
+    'description' => 'Settings for moving drupal data to a CouchDB instance',    
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('couch_migrate_settings_form'),  
+    'file' => 'couch_migrate.admin.inc',        
+    'access arguments' => array('administer couch_migrate'),
+    'weight' => 1,
+  );
+  
+  return $items;
+}
+
+
+/**
+ * Implementation of hook_perm().
+ */
+function couch_migrate_perm() {
+  return array('administer couch_migrate');
+}
+
+
+/**
+ * Implementation of hook_help()
+ */
+function couch_migrate_help($path, $arg) {
+  switch ($path) {
+    case 'admin/settings/couch-migrate':
+      $output .= '<p>'. t('This module allows you to execute a query against any configured database, and store the result set in a CouchDB at the path listed here.  It is meant to help move data to Couch.').'</p>';      
+      $output .= '<p>'. t('There are two drush functions provided: <ul><li><strong>couch-migrate migrate <em>SQL</em> <em>DB</em></strong> executes a SQL query and stores results in the configured CouchDB instance. Arg 1: a SQL query.  Arg 2: a db to execute that query against.</li><li><strong>couch-migrate status</strong> checks if CouchDB is running.</li></ul>') .'</p>';
+      return $output;
+  }
+}
